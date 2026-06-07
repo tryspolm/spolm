@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "spolm"
+version = "0.1.0"
+description = "Self-learning intelligence layer for AI agents"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+dependencies = [
+    "neo4j>=5.0",
+    "litellm>=1.0",
+    "numpy>=1.24",
+    "python-dotenv>=1.0",
+    "httpx>=0.24",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-asyncio"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["spolm*"]
