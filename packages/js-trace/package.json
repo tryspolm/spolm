@@ -1,6 +1,6 @@
 {
   "name": "@spolm/tracer",
-  "version": "1.0.1",
+  "version": "0.1.0",
   "description": "Official Spolm SDK for tracing and logging agent runs",
   "main": "trace.js",
   "scripts": {
@@ -18,13 +18,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tanrocode/spolm.git",
-    "directory": "js-sdk"
+    "url": "git+https://github.com/tryspolm/spolm-opensource.git",
+    "directory": "packages/js-trace"
   },
   "bugs": {
-    "url": "https://github.com/Tanrocode/spolm/issues"
+    "url": "https://github.com/tryspolm/spolm-opensource/issues"
   },
-  "homepage": "https://github.com/Tanrocode/spolm#readme",
+  "homepage": "https://github.com/tryspolm/spolm-opensource#readme",
   "dependencies": {
     "uuid": "^9.0.0"
   },
@@ -33,8 +33,7 @@
   },
   "files": [
     "trace.js",
-    "apikeys-management",
-    "logs-analysis",
+    "api",
     "README.md"
   ],
   "devDependencies": {
