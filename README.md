@@ -7,7 +7,6 @@
 **Self-learning intelligence layer for AI agents.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![CI](https://github.com/tryspolm/spolm-opensource/actions/workflows/ci.yml/badge.svg)](https://github.com/tryspolm/spolm-opensource/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/spolm.svg)](https://pypi.org/project/spolm/)
 
 [Website](https://tryspolm.com) · [Docs](https://tanrocode.github.io/spolm-docs/)
