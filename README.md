@@ -25,15 +25,19 @@ run N → compounding improvement
 
 ---
 
-## Install
+## Packages
 
-```bash
-pip install spolm
-```
+| Package | Install | Description |
+|---|---|---|
+| [`packages/python`](packages/python/) | `pip install spolm` | Learning SDK — `get_context()` + `record()` |
+| [`packages/python-trace`](packages/python-trace/) | `pip install spolm-trace` | Python tracing — structured run + step logging |
+| [`packages/js-trace`](packages/js-trace/) | `npm install @spolm/tracer` | JS tracing — structured run + step logging |
 
 ---
 
 ## Quick Start
+
+### Learning SDK
 
 ```python
 from spolm import Spolm
@@ -67,6 +71,36 @@ Both modes share the same API. `get_context()` always returns a string and never
 
 ---
 
+### Tracing SDK
+
+Use the Tracer alongside the learning SDK to log every step automatically and trigger learning at the end of each run.
+
+```python
+from trace import Tracer
+
+tracer = Tracer(api_key="spk_...", agent_id="my-agent", spolm=spolm)
+tracer.start_run("summarize inbox")
+
+@tracer.log_step(step_name="fetch_emails", step_type="tool_call")
+async def fetch_emails(query): ...
+
+await fetch_emails("inbox")
+tracer.end_run(result)  # logs the run + fires spolm.record() automatically
+```
+
+**JavaScript:**
+
+```javascript
+const Tracer = require("@spolm/tracer");
+
+const tracer = new Tracer("spk_...", "my-agent", { userId: "user-123" });
+tracer.startRun("summarize inbox");
+// ... log steps ...
+tracer.endRun(result);
+```
+
+---
+
 ## How it works
 
 ### Memory extraction
@@ -96,6 +130,7 @@ This keeps the memory graph clean and non-redundant as your agent accumulates mo
 | `SPOLM_NEO4J_URI` | Self-hosted Neo4j URI |
 | `SPOLM_NEO4J_PASSWORD` | Self-hosted Neo4j password |
 | `SPOLM_LLM_API_KEY` | LLM provider API key (self-hosted only) |
+| `SPOLM_BASE_URL` | Override the tracing API base URL (self-hosted only) |
 
 ---
 

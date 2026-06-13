@@ -1,0 +1,27 @@
+# Development files
+.DS_Store
+Untitled-1.json
+*.log
+*.env
+
+# Git files
+.git
+.gitignore
+
+# Debug files
+debug-logs/
+node_modules/
+
+# Test files (if you add tests later)
+test/
+tests/
+*.test.js
+
+# Documentation (keep README.md, ignore others)
+docs/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
