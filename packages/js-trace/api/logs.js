@@ -1,14 +1,12 @@
 // Log posting is only required for the Spolm hosted platform (tryspolm.com).
-// For self-hosted deployments, set SPOLM_BASE_URL to your own backend URL.
-const BASE_URL = process.env.SPOLM_BASE_URL || "https://api.tryspolm.com";
-
-async function postLog(apiKey, agentID, log) {
+// For self-hosted deployments, pass baseUrl to Tracer() or set SPOLM_BASE_URL.
+async function postLog(apiKey, agentID, log, baseUrl = "https://api.tryspolm.com") {
   try {
     const payload = {
       agentId: agentID,
       logData: log,
     };
-    const res = await fetch(`${BASE_URL}/api/logs/post`, {
+    const res = await fetch(`${baseUrl}/api/logs/post`, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${apiKey}`,

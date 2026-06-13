@@ -1,12 +1,9 @@
-import os
 import requests
 import json
 
 # Log posting is only required for the Spolm hosted platform (tryspolm.com).
-# For self-hosted deployments, set SPOLM_BASE_URL to your own backend URL.
-BASE_URL = os.getenv("SPOLM_BASE_URL", "https://api.tryspolm.com")
-
-def post_log(api_key, agent_id, log):
+# For self-hosted deployments, pass base_url to Tracer() or set SPOLM_BASE_URL.
+def post_log(api_key, agent_id, log, base_url: str = "https://api.tryspolm.com"):
     try:
         payload = {
             "agentId": agent_id,
@@ -19,7 +16,7 @@ def post_log(api_key, agent_id, log):
         }
 
         res = requests.post(
-            f"{BASE_URL}/api/logs/post",
+            f"{base_url}/api/logs/post",
             json=payload,
             headers=headers,
             timeout=10,

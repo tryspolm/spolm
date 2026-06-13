@@ -12,8 +12,9 @@ class Tracer {
    * @param {string} options.userId - User identifier for multi-tenancy (default: "default")
    * @param {boolean} options.debug - Write debug files to disk (default: false)
    * @param {Object} options.spolm - Spolm learning SDK instance for auto-learning on endRun()
+   * @param {string} options.baseUrl - Override the API base URL (self-hosted only, default: "https://api.tryspolm.com")
    */
-  constructor(apiKey, agentId, { userId = "default", debug = false, spolm = null } = {}) {
+  constructor(apiKey, agentId, { userId = "default", debug = false, spolm = null, baseUrl = null } = {}) {
     if (!apiKey) throw new Error("apiKey is required");
     if (!agentId) throw new Error("agentId is required");
 
@@ -23,9 +24,10 @@ class Tracer {
     this.debug = debug;
     this._spolm = spolm;
     this.currentRun = null;
+    this.baseUrl = baseUrl || process.env.SPOLM_BASE_URL || "https://api.tryspolm.com";
 
     // fire-and-forget validation — never blocks constructor
-    checkAPIKey(apiKey).then((result) => {
+    checkAPIKey(apiKey, this.baseUrl).then((result) => {
       if (!result.valid) {
         console.warn("[spolm] Invalid API key — calls will fail");
       }
@@ -138,7 +140,7 @@ class Tracer {
   }
 
   _postLog() {
-    postLog(this.apiKey, this.agentId, this.currentRun).catch(() => {});
+    postLog(this.apiKey, this.agentId, this.currentRun, this.baseUrl).catch(() => {});
   }
 
   _writeDebugFile() {

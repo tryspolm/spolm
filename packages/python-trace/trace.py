@@ -11,7 +11,7 @@ logger = logging.getLogger("spolm.trace")
 
 class Tracer:
 
-    def __init__(self, api_key, agent_id, user_id="default", options=None, debug=False, spolm=None):
+    def __init__(self, api_key, agent_id, user_id="default", options=None, debug=False, spolm=None, base_url=None):
         if not api_key:
             raise ValueError("api_key is required")
         if not agent_id:
@@ -24,13 +24,14 @@ class Tracer:
         self.debug = debug
         self.current_run = None
         self._spolm = spolm
+        self.base_url = base_url or os.getenv("SPOLM_BASE_URL", "https://api.tryspolm.com")
 
         threading.Thread(target=self._validate_api_key, daemon=True).start()
 
     def _validate_api_key(self):
         try:
             from api.keys import check_api_key
-            result = check_api_key(self.API_KEY)
+            result = check_api_key(self.API_KEY, base_url=self.base_url)
             if not result.get("valid", False):
                 logger.warning("Invalid Spolm API key — calls will fail")
         except Exception as e:
@@ -153,7 +154,7 @@ class Tracer:
     def _post_log(self):
         try:
             from api.logs import post_log
-            post_log(self.API_KEY, self.AGENT_ID, self.current_run)
+            post_log(self.API_KEY, self.AGENT_ID, self.current_run, base_url=self.base_url)
         except Exception as e:
             logger.warning("Failed to post log: %s", e)
 

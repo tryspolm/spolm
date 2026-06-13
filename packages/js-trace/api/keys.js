@@ -1,10 +1,8 @@
 // API key validation is only required for the Spolm hosted platform (tryspolm.com).
-// For self-hosted deployments, set SPOLM_BASE_URL to your own backend URL.
-const BASE_URL = process.env.SPOLM_BASE_URL || "https://api.tryspolm.com";
-
-async function checkAPIKey(apiKey) {
+// For self-hosted deployments, pass baseUrl to Tracer() or set SPOLM_BASE_URL.
+async function checkAPIKey(apiKey, baseUrl = "https://api.tryspolm.com") {
   try {
-    const res = await fetch(`${BASE_URL}/api/keys/validate`, {
+    const res = await fetch(`${baseUrl}/api/keys/validate`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${apiKey}`,

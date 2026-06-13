@@ -7,7 +7,9 @@
 **Self-learning intelligence layer for AI agents.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/spolm.svg)](https://pypi.org/project/spolm/)
+[![PyPI spolm](https://img.shields.io/pypi/v/spolm.svg?label=spolm)](https://pypi.org/project/spolm/)
+[![PyPI spolm-trace](https://img.shields.io/pypi/v/spolm-trace.svg?label=spolm-trace)](https://pypi.org/project/spolm-trace/)
+[![npm @spolm/tracer](https://img.shields.io/npm/v/@spolm/tracer.svg?label=@spolm/tracer)](https://www.npmjs.com/package/@spolm/tracer)
 
 [Website](https://tryspolm.com) · [Docs](https://tanrocode.github.io/spolm-docs/)
 
@@ -88,6 +90,12 @@ await fetch_emails("inbox")
 tracer.end_run(result)  # logs the run + fires spolm.record() automatically
 ```
 
+**Self-hosted** (defaults to `api.tryspolm.com` — override with your own backend):
+
+```python
+tracer = Tracer(api_key="...", agent_id="my-agent", base_url="https://your-backend.com")
+```
+
 **JavaScript:**
 
 ```javascript
@@ -97,6 +105,12 @@ const tracer = new Tracer("spk_...", "my-agent", { userId: "user-123" });
 tracer.startRun("summarize inbox");
 // ... log steps ...
 tracer.endRun(result);
+```
+
+**Self-hosted** (defaults to `api.tryspolm.com` — override with your own backend):
+
+```javascript
+const tracer = new Tracer("...", "my-agent", { baseUrl: "https://your-backend.com" });
 ```
 
 ---

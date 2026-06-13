@@ -1,14 +1,11 @@
-import os
 import requests
 
 # API key validation is only required for the Spolm hosted platform (tryspolm.com).
-# For self-hosted deployments, set SPOLM_BASE_URL to your own backend URL.
-BASE_URL = os.getenv("SPOLM_BASE_URL", "https://api.tryspolm.com")
-
-def check_api_key(api_key: str) -> dict:
+# For self-hosted deployments, pass base_url to Tracer() or set SPOLM_BASE_URL.
+def check_api_key(api_key: str, base_url: str = "https://api.tryspolm.com") -> dict:
     try:
         res = requests.get(
-            f"{BASE_URL}/api/keys/validate",
+            f"{base_url}/api/keys/validate",
             headers={"Authorization": f"Bearer {api_key}"},
             timeout=10,
         )
